@@ -304,33 +304,55 @@ main{ padding-top: var(--header-h); }
   font-size: 16px;
 }
 
-/* ---------- Bubble on 4 sections ---------- */
-#how, #impact, #waitlist, #message{
+/* ============ Bubble effect — semantic sections only ============ */
+
+/* 버블 적용할 섹션 */
+#why, #new, #trust, #faq{
   position: relative;
   overflow: hidden;
 }
-#how::before, #impact::before, #waitlist::before, #message::before{
+
+/* 왼쪽 버블 (따뜻한 옐로우) */
+#why::before,
+#new::before,
+#trust::before,
+#faq::before{
   content:"";
   position:absolute;
-  width: 240px; height: 240px;
+  width: 260px;
+  height: 260px;
   border-radius: 999px;
-  background: rgba(243,226,106,0.20);
-  left: -90px;
-  top: 120px;
+  background: rgba(243,226,106,0.18); /* accent yellow */
+  left: -120px;
+  top: 140px;
+  z-index: 0;
 }
-#how::after, #impact::after, #waitlist::after, #message::after{
+
+/* 오른쪽 버블 (민트) */
+#why::after,
+#new::after,
+#trust::after,
+#faq::after{
   content:"";
   position:absolute;
-  width: 340px; height: 340px;
+  width: 360px;
+  height: 360px;
   border-radius: 999px;
-  background: rgba(130,198,182,0.18);
-  right: -130px;
-  top: -60px;
+  background: rgba(130,198,182,0.16); /* mint */
+  right: -160px;
+  top: -80px;
+  z-index: 0;
 }
-#how .container, #impact .container, #waitlist .container, #message .container{
+
+/* 콘텐츠는 항상 위로 */
+#why .container,
+#new .container,
+#trust .container,
+#faq .container{
   position: relative;
   z-index: 1;
 }
+
 
 /* ---------- GIF in how section ---------- */
 .how-gif{
@@ -503,86 +525,176 @@ main{ padding-top: var(--header-h); }
   font-size: 13px;
 }
 
-/* ============ Painpoints — Wix-like clean layout ============ */
-/* painpoints 섹션은 섹션 카드 박스 룰을 무효화해서 "넓은 여백" 느낌 */
+/* ============ PATCH: Painpoints — glass silhouette cards (keep layout) ============ */
+
+/* 섹션 컨테이너는 '큰 반투명 유리 박스'처럼 */
 .section--painpoints .container{
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  padding: 0 !important;
+  background: rgba(255,255,255,0.22) !important;
+  border: 1px solid rgba(255,255,255,0.42) !important;
+  box-shadow: var(--shadow-card) !important;
+  border-radius: 22px !important;
+  padding: 34px 26px !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/* 섹션 자체 여백 */
-.section--painpoints{
-  padding: 96px 0;
-  background: #fff;
+/* --- Painpoints: clean center alignment --- */
+
+.section--painpoints .painpoints-title,
+.section--painpoints .painpoints-sub,
+.section--painpoints .painpoints-badge{
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* 제목 강조 (임팩트 업) */
 .section--painpoints .painpoints-title{
-  font-size: clamp(32px, 3vw, 44px);
-  letter-spacing: -0.03em;
-  margin-bottom: 16px;
+  font-size: clamp(34px, 3.2vw, 52px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 14px;
+  color: var(--ink);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+  position: relative;
+  display: inline-block;
 }
 
+.section--painpoints .em{
+  color: var(--mint-ink);
+}
+
+/* 서브텍스트는 좀 더 정돈 */
 .section--painpoints .painpoints-sub{
   max-width: 760px;
-  margin: 0 auto 18px;
+  margin: 0 auto 14px;
   color: var(--muted);
   line-height: 1.7;
   font-size: 16px;
 }
 
+/* 배지는 pill 형태로 아주 얇게 */
 .section--painpoints .painpoints-badge{
   display: inline-block;
-  margin: 0 auto 56px;
+  margin: 0 auto 28px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
   color: var(--muted);
-  font-size: 14px;
+  background: rgba(255,255,255,0.28);
+  border: 1px solid rgba(47,52,56,0.10);
 }
 
-/* Wix처럼 넓게 떨어진 2x2 그리드 */
+/* 2x2 레이아웃 유지 (너 스샷 구조) */
 .section--painpoints .painpoints-grid{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 90px 120px; /* row gap, column gap */
+  gap: 34px 44px;
   align-items: start;
   justify-items: center;
-  max-width: 980px;
-  margin: 0 auto;
+  margin-top: 20px;
 }
 
-/* 카드 느낌 제거: border/shadow 없이 '블록'처럼 */
+/* 작은 카드: 거의 투명한 실루엣만 */
 .section--painpoints .painpoint-card{
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  padding: 0;
-  max-width: 360px;
+  width: 100%;
+  max-width: 420px;
+  padding: 22px 18px;
+  border-radius: 22px;
+
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.36);
+  box-shadow: 0 10px 24px rgba(47,52,56,0.06);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  text-align: center;  /* 현재 배치 유지 */
 }
 
-/* GIF는 "아이콘"처럼 작게 */
+/* GIF 아이콘 박스: 그대로 예쁘게 */
 .section--painpoints .painpoint-card img{
-  width: 84px;
-  height: 84px;
+  width: 96px;
+  height: 96px;
   object-fit: cover;
-  border-radius: 18px;
-  margin: 0 auto 18px;
-  display: block;
+  border-radius: 22px;
+  margin: 0 auto 14px;
+  border: 1px solid rgba(47,52,56,0.08);
+  background: rgba(255,255,255,0.35);
 }
 
-/* 타이포도 Wix처럼 큼직하고 심플하게 */
+/* 타이포: Wix 느낌처럼 큼직 + 깔끔 */
 .section--painpoints .painpoint-card h3{
   font-size: 26px;
-  letter-spacing: -0.02em;
-  margin: 8px 0 10px;
-  font-weight: 800;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin: 6px 0 10px;
+  color: var(--ink);
 }
 
 .section--painpoints .painpoint-card p{
   font-size: 16px;
-  line-height: 1.8;
+  line-height: 1.75;
   color: var(--muted);
   margin: 0;
+}
+
+/* hover는 “살짝 떠오르는” 정도만 */
+.section--painpoints .painpoint-card:hover{
+  transform: translateY(-2px);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  box-shadow: 0 14px 32px rgba(47,52,56,0.08);
+}
+
+/* 모바일: 1열 */
+@media (max-width: 860px){
+  .section--painpoints .painpoints-grid{
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .section--painpoints .painpoint-card{
+    max-width: 520px;
+  }
+  .section--painpoints .painpoint-card h3{
+    font-size: 22px;
+  }
+  .section--painpoints .painpoint-card img{
+    width: 90px;
+    height: 90px;
+  }
+}
+
+/* --- FIX: force painpoints title to true center --- */
+.section--painpoints .painpoints-title{
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+/* --- FIX: force painpoints badge to center --- */
+.section--painpoints .painpoints-badge{
+  display: block !important;
+  width: fit-content !important;
+  margin: 14px auto 28px !important;
+  text-align: center !important;
+}
+
+.section--painpoints .painpoints-sub{
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+
+/* 제목 아래 여백 */
+.section--painpoints .painpoints-title{
+  margin-bottom: 22px !important;
+}
+
+/* --- Hero: breathing room for trust line --- */
+.hero .proof-line{
+  margin-top: 26px; /* 기존보다 살짝 더 */
 }
 
 /* ---------- Responsive ---------- */
