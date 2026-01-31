@@ -5,6 +5,9 @@
     <meta name="viewport"
     content="width=device-width, initial-scale=1"/>
     <title>CozyLeaf | Reusable Menstrual Cup Designed for Comfort</title>
+    <meta name="description"
+    content="CozyLeaf is a patented reusable menstrual cup designed for comfort, flexibility, and a gentler first-time experience."/>
+
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -155,22 +158,25 @@
 </section>
 
 
-     <section class="section" id="waitlist">
-  <div class="container">
-    <h2>Join the waitlist</h2>
+    <section class="section" id="waitlist">
+      <div class="container">
+      <h2>Join the waitlist</h2>
 
-    <form
+      <form
       id="waitlistForm"
       action="https://mycozyleaf.us12.list-manage.com/subscribe/post?u=1912f6aa78a52ed6cce773743&id=c499fcf704&f_id=00eeb4e1f0"
       method="post"
       novalidate
-    >
+      >
+      
       <input
-        type="email"
-        name="EMAIL"
-        placeholder="you@example.com"
-        required
+      type="email"
+      name="EMAIL"
+      placeholder="you@example.com"
+      autocomplete="email"
+      required
       />
+
 
       <input
         type="text"
@@ -183,8 +189,10 @@
 
       <button class="btn btn--primary" type="submit">Join the waitlist</button>
     </form>
+    </div>
+  </section>
 
-  </div>
+  
 
   <section class="section" id="faq">
         <div class="container">
@@ -252,9 +260,7 @@
     </form>
   </div>
 </section>
-</section>
-
-     </main>
+</main>
 
      <footer class="footer">
         <div class="container footer__inner">
@@ -295,7 +301,7 @@
 
 
      <!-- JS connection -->
-      <script src="script.js"></script>
+      <script src="script.js" defer></script>
 
 
     </body>
