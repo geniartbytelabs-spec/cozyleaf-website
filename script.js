@@ -4,6 +4,9 @@
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobileMenu");
 const waitlistForm = document.getElementById("waitlistForm");
+const messageForm = document.getElementById("messageForm");
+attachEmailValidation(messageForm);
+
 
 /* =========================
    1) Mobile menu open/close

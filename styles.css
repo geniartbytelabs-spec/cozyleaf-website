@@ -307,12 +307,12 @@ main{ padding-top: var(--header-h); }
 /* ---------- Bubble ONLY on #how and #impact ---------- */
 /* Remove bubble everywhere by default (none here) */
 
-/* Big side bubbles ONLY for how + impact */
-#how, #impact{
+/* Big side bubbles */
+#how, #impact, #waitlist, #message{
   position: relative;
   overflow: hidden;
 }
-#how::before, #impact::before{
+#how::before, #waitlist::before, #impact::before, #message::before{
   content:"";
   position:absolute;
   width: 240px; height: 240px;
@@ -321,7 +321,7 @@ main{ padding-top: var(--header-h); }
   left: -90px;
   top: 120px;
 }
-#how::after, #impact::after{
+#how::after, #impact::after, #waitlist::after, #message::after{
   content:"";
   position:absolute;
   width: 340px; height: 340px;
@@ -330,7 +330,7 @@ main{ padding-top: var(--header-h); }
   right: -130px;
   top: -60px;
 }
-#how .container, #impact .container{
+#how .container, #impact .container, #waitlist .container, #waitlist .container{
   position: relative;
   z-index: 1;
 }
@@ -477,8 +477,72 @@ main{ padding-top: var(--header-h); }
     background-position: 90% 40%;
     opacity: 0.06;
   }
+
+  .section-lead{
+  margin-top: 8px;
+  color: var(--muted);
+  max-width: 62ch;
 }
 
+/* form base */
+.form{
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+  max-width: 640px;
+}
+
+/* card feel like your other sections */
+.form--card{
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(47,52,56,0.10);
+  background: rgba(255,255,255,0.86);
+  box-shadow: var(--shadow-soft);
+}
+
+.form-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form input,
+.form textarea{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(47,52,56,0.14);
+  background: rgba(255,255,255,0.95);
+  color: var(--ink);
+  font: inherit;
+  outline: none;
+}
+
+.form input:focus,
+.form textarea:focus{
+  border-color: rgba(130,198,182,0.55); /* your mint */
+  box-shadow: 0 0 0 4px rgba(130,198,182,0.18);
+}
+
+.form textarea{
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-note{
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+}
+
+/* mobile */
+@media (max-width: 768px){
+  .form-grid{
+    grid-template-columns: 1fr;
+  }
+}
 @media (max-width: 768px){
   :root{ --header-h: 68px; }
 
