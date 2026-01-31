@@ -232,34 +232,46 @@
     <form
       id="messageForm"
       class="form form--card"
-      action="https://mycozyleaf.us12.list-manage.com/subscribe/post?u=1912f6aa78a52ed6cce773743&id=c499fcf704&f_id=00eeb4e1f0"
-      method="post"
-      novalidate
+      action="https://formspree.io/f/xnjvkrwn"
+      method="POST"
     >
       <div class="form-grid">
-        <input type="text" name="FNAME" placeholder="First name" />
-        <input type="text" name="LNAME" placeholder="Last name" />
+        <input
+          type="text"
+          name="first_name"
+          placeholder="First name"
+          autocomplete="given-name"
+        />
+        <input
+          type="text"
+          name="last_name"
+          placeholder="Last name"
+          autocomplete="family-name"
+        />
       </div>
 
-      <input type="email" name="EMAIL" placeholder="Email *" required />
-      <textarea name="MESSAGE" rows="5" placeholder="Message"></textarea>
-
-      <input type="hidden" name="tags" value="message" />
-
       <input
-        type="text"
-        name="b_1912f6aa78a52ed6cce773743_c499fcf704"
-        tabindex="-1"
-        autocomplete="off"
-        style="position:absolute; left:-5000px;"
-        value=""
+        type="email"
+        name="email"
+        placeholder="Email *"
+        autocomplete="email"
+        required
       />
 
-      <button class="btn btn--primary" type="submit">Send message</button>
+      <textarea
+        name="message"
+        rows="5"
+        placeholder="Message"
+        required
+      ></textarea>
 
+      <button class="btn btn--primary" type="submit">
+        Send message
+      </button>
     </form>
   </div>
 </section>
+
 </main>
 
      <footer class="footer">

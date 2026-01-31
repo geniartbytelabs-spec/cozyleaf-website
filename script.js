@@ -1,8 +1,8 @@
 /* =========================
    CozyLeaf — script.js (FINAL)
-   - No ReferenceError
    - Mobile hamburger menu works
-   - Forms are optional (safe if missing)
+   - Waitlist (Mailchimp): validate + submit normally
+   - Message (Formspree): submit via fetch (no redirect)
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -37,44 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setSubmitting(form, isSubmitting) {
     if (!form) return;
-    const btn = form.querySelector(
-      'button[type="submit"], input[type="submit"]'
-    );
+    const btn = form.querySelector('button[type="submit"], input[type="submit"]');
     if (btn) btn.disabled = isSubmitting;
   }
 
   /* =========================
-     2) Email validation helper
-     (SAFE even if form doesn't exist)
-  ========================= */
-  function attachEmailValidation(form) {
-    if (!form) return;
-
-    const emailInput =
-      form.querySelector('input[type="email"]') ||
-      form.querySelector('input[name="EMAIL"]');
-
-    if (!emailInput) return;
-
-    form.addEventListener("submit", (e) => {
-      const email = (emailInput.value || "").trim();
-      if (!email) return;
-
-      if (!isValidEmail(email)) {
-        e.preventDefault();
-        setFormStatus(form, "Please enter a valid email address.", "error");
-        emailInput.focus();
-      } else {
-        setFormStatus(form, "", "info");
-      }
-    });
-  }
-
-  // Attach safely (no crash even if missing)
-  attachEmailValidation(messageForm);
-
-  /* =========================
-     3) Mobile menu (Hamburger)
+     2) Mobile menu (Hamburger)
   ========================= */
   function setMenu(open) {
     if (!hamburger || !mobileMenu) return;
@@ -105,7 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================
-     4) Waitlist (Mailchimp)
+     3) Waitlist (Mailchimp)
+     - Validate only
+     - Let browser submit normally to Mailchimp
   ========================= */
   if (waitlistForm) {
     waitlistForm.addEventListener("submit", (e) => {
@@ -120,11 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!isValidEmail(email)) {
         e.preventDefault();
-        setFormStatus(
-          waitlistForm,
-          "Please enter a valid email address.",
-          "error"
-        );
+        setFormStatus(waitlistForm, "Please enter a valid email address.", "error");
         if (emailInput) emailInput.focus();
         return;
       }
@@ -135,6 +101,47 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         setSubmitting(waitlistForm, false);
       }, 5000);
+    });
+  }
+
+  /* =========================
+     4) Message (Formspree)
+     - Submit via fetch (no redirect)
+  ========================= */
+  if (messageForm) {
+    messageForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // basic email validation if there's an email input
+      const emailInput = messageForm.querySelector('input[type="email"]');
+      const email = emailInput ? emailInput.value.trim() : "";
+      if (emailInput && !isValidEmail(email)) {
+        setFormStatus(messageForm, "Please enter a valid email address.", "error");
+        emailInput.focus();
+        return;
+      }
+
+      setSubmitting(messageForm, true);
+      setFormStatus(messageForm, "Sending…", "info");
+
+      try {
+        const res = await fetch(messageForm.action, {
+          method: "POST",
+          body: new FormData(messageForm),
+          headers: { Accept: "application/json" },
+        });
+
+        if (res.ok) {
+          setFormStatus(messageForm, "Thanks! We’ll get back to you shortly.", "success");
+          messageForm.reset();
+        } else {
+          setFormStatus(messageForm, "Something went wrong. Please try again.", "error");
+        }
+      } catch {
+        setFormStatus(messageForm, "Network error. Please try again.", "error");
+      } finally {
+        setSubmitting(messageForm, false);
+      }
     });
   }
 });
