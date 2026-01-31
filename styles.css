@@ -1,8 +1,8 @@
 /* =========================
-   CozyLeaf — Card Layout 유지 + Bubble 2 Sections Only
+   CozyLeaf — Card Layout 유지 + Bubble 4 Sections
    - Header: glass white + mint text
    - Sections: ALL use card container (like before)
-   - Big side bubbles ONLY on #how and #impact
+   - Big side bubbles on #how, #impact, #waitlist, #message
    - Hero: photo card + floating shadow 유지
 ========================= */
 
@@ -11,7 +11,7 @@
   --bg: #ffffff;
   --mint-soft: #e8f6f1;
 
-  /* mint fixed (your values) */
+  /* mint fixed */
   --mint-ink: #93cfc3;
   --mint-ink-deep: #93cfc3;
 
@@ -304,10 +304,7 @@ main{ padding-top: var(--header-h); }
   font-size: 16px;
 }
 
-/* ---------- Bubble ONLY on #how and #impact ---------- */
-/* Remove bubble everywhere by default (none here) */
-
-/* Big side bubbles */
+/* ---------- Bubble on 4 sections ---------- */
 #how, #impact, #waitlist, #message{
   position: relative;
   overflow: hidden;
@@ -345,25 +342,6 @@ main{ padding-top: var(--header-h); }
   border: 1px solid rgba(47,52,56,0.10);
   box-shadow: var(--shadow-soft);
 }
-
-/* ---------- Trust pills ---------- */
-.trust-list{
-  margin-top: 18px;
-  display:flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  list-style:none;
-  padding:0;
-}
-.trust-list li{
-  padding: 10px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(47,52,56,0.10);
-  background: rgba(130,198,182,0.10);
-  color: var(--ink);
-  font-weight: 700;
-}
-.trust-list li::before{ content:""; display:none; }
 
 /* ---------- FAQ bubble cards (keep) ---------- */
 #faq h3{
@@ -425,6 +403,58 @@ main{ padding-top: var(--header-h); }
 }
 #waitlist input[type="email"]::placeholder{ color: rgba(47,52,56,0.45); }
 
+/* ---------- Message form base (always applies) ---------- */
+.section-lead{
+  margin-top: 8px;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.form{
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+  max-width: 640px;
+}
+
+.form--card{
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(47,52,56,0.10);
+  background: rgba(255,255,255,0.86);
+  box-shadow: var(--shadow-soft);
+}
+
+.form-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form input,
+.form textarea{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(47,52,56,0.14);
+  background: rgba(255,255,255,0.95);
+  color: var(--ink);
+  font: inherit;
+  outline: none;
+}
+
+.form input:focus,
+.form textarea:focus{
+  border-color: rgba(130,198,182,0.55);
+  box-shadow: 0 0 0 4px rgba(130,198,182,0.18);
+}
+
+.form textarea{
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* form status */
 .form-status{
   margin-top: 10px;
   font-size: 14px;
@@ -477,71 +507,6 @@ main{ padding-top: var(--header-h); }
     background-position: 90% 40%;
     opacity: 0.06;
   }
-
-  .section-lead{
-  margin-top: 8px;
-  color: var(--muted);
-  max-width: 62ch;
-}
-
-/* form base */
-.form{
-  margin-top: 18px;
-  display: grid;
-  gap: 12px;
-  max-width: 640px;
-}
-
-/* card feel like your other sections */
-.form--card{
-  padding: 18px;
-  border-radius: 18px;
-  border: 1px solid rgba(47,52,56,0.10);
-  background: rgba(255,255,255,0.86);
-  box-shadow: var(--shadow-soft);
-}
-
-.form-grid{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.form input,
-.form textarea{
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(47,52,56,0.14);
-  background: rgba(255,255,255,0.95);
-  color: var(--ink);
-  font: inherit;
-  outline: none;
-}
-
-.form input:focus,
-.form textarea:focus{
-  border-color: rgba(130,198,182,0.55); /* your mint */
-  box-shadow: 0 0 0 4px rgba(130,198,182,0.18);
-}
-
-.form textarea{
-  resize: vertical;
-  min-height: 120px;
-}
-
-.form-note{
-  margin-top: 6px;
-  font-size: 13px;
-  color: var(--muted);
-}
-}
-
-/* mobile */
-@media (max-width: 768px){
-  .form-grid{
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 768px){
@@ -551,9 +516,96 @@ main{ padding-top: var(--header-h); }
   .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
 
   .logo-mark{ height: 30px; }
-
   .footer__inner{ grid-template-columns: 1fr; }
 
   .hero{ padding: 84px 0 56px; }
   .section{ padding: 80px 0; }
+
+  .form-grid{ grid-template-columns: 1fr; }
+}
+
+/* ============ Painpoints (4 GIF cards) — match site tone ============ */
+
+.section--painpoints{
+  padding: 72px 0;
+  text-align: center;
+}
+
+.painpoints-title{
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+}
+
+.painpoints-sub{
+  max-width: 760px;
+  margin: 0 auto 10px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.painpoints-badge{
+  display: inline-block;
+  margin: 10px auto 34px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  background: rgba(147, 207, 195, 0.12);
+  border: 1px solid rgba(47, 52, 56, 0.10);
+}
+
+.painpoints-grid{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.painpoint-card{
+  background: #fff;
+  border: 1px solid rgba(47, 52, 56, 0.10);
+  border-radius: 18px;
+  padding: 18px 16px 16px;
+  box-shadow: 0 10px 24px rgba(47, 52, 56, 0.06);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.painpoint-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(47, 52, 56, 0.08);
+}
+
+.painpoint-card img{
+  width: 132px;
+  height: 132px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(47, 52, 56, 0.08);
+  background: rgba(147, 207, 195, 0.08);
+  margin: 0 auto 12px;
+  display: block;
+}
+
+.painpoint-card h3{
+  font-size: 1.02rem;
+  margin: 6px 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.painpoint-card p{
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+@media (max-width: 980px){
+  .painpoints-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px){
+  .section--painpoints{ padding: 58px 0; }
+  .painpoints-grid{ grid-template-columns: 1fr; }
+  .painpoint-card img{ width: 120px; height: 120px; }
 }
