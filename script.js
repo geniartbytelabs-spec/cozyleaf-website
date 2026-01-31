@@ -1,12 +1,85 @@
 /* =========================
+   CozyLeaf — script.js (Fixed)
+   - Prevent JS from crashing when optional elements are missing
+   - Mobile menu works even if forms are not present
+   - Keeps your waitlist validation behavior
+========================= */
+
+/* =========================
    0) Grab elements
 ========================= */
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobileMenu");
 const waitlistForm = document.getElementById("waitlistForm");
 const messageForm = document.getElementById("messageForm");
-attachEmailValidation(messageForm);
 
+/* =========================
+   0.1) Small utilities
+========================= */
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim());
+}
+
+function setFormStatus(form, msg, type = "info") {
+  if (!form) return;
+  let el = form.querySelector(".form-status");
+  if (!el) {
+    el = document.createElement("p");
+    el.className = "form-status";
+    el.setAttribute("role", "status");
+    el.setAttribute("aria-live", "polite");
+    form.appendChild(el);
+  }
+  el.textContent = msg;
+  el.dataset.type = type;
+}
+
+function setSubmitting(form, isSubmitting) {
+  if (!form) return;
+  const btn = form.querySelector('button[type="submit"], input[type="submit"]');
+  if (btn) btn.disabled = isSubmitting;
+}
+
+/* =========================
+   0.2) attachEmailValidation (FIX)
+   - Safely attaches validation to a given form (if it exists)
+   - You can use it for messageForm, waitlistForm, etc.
+========================= */
+function attachEmailValidation(form, selector = 'input[type="email"], input[name="EMAIL"]') {
+  if (!form) return;
+
+  const emailInput = form.querySelector(selector);
+  if (!emailInput) return;
+
+  form.addEventListener("submit", (e) => {
+    const email = (emailInput.value || "").trim();
+
+    // Empty email: let required attribute handle it if present,
+    // otherwise show a friendly message.
+    if (!email) {
+      // if the input is required, the browser will handle it
+      if (!emailInput.required) {
+        e.preventDefault();
+        setFormStatus(form, "Please enter your email address.", "error");
+        emailInput.focus();
+      }
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      e.preventDefault();
+      setFormStatus(form, "Please enter a valid email address.", "error");
+      emailInput.focus();
+      return;
+    }
+
+    // Clear message when valid
+    setFormStatus(form, "", "info");
+  });
+}
+
+/* ✅ This line caused your crash before. Now it's safe. */
+attachEmailValidation(messageForm);
 
 /* =========================
    1) Mobile menu open/close
@@ -34,7 +107,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") setMenu(false);
 });
 
-/* (선택) 바깥 클릭하면 닫기 */
+/* (Optional) close when clicking outside header */
 document.addEventListener("click", (e) => {
   const clickedInsideHeader = e.target.closest(".header");
   if (!clickedInsideHeader) setMenu(false);
@@ -45,28 +118,6 @@ document.addEventListener("click", (e) => {
    - Validate only
    - Let the browser submit normally to Mailchimp
 ========================= */
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim());
-}
-
-function setFormStatus(form, msg, type = "info") {
-  let el = form.querySelector(".form-status");
-  if (!el) {
-    el = document.createElement("p");
-    el.className = "form-status";
-    el.setAttribute("role", "status");
-    el.setAttribute("aria-live", "polite");
-    form.appendChild(el);
-  }
-  el.textContent = msg;
-  el.dataset.type = type;
-}
-
-function setSubmitting(form, isSubmitting) {
-  const btn = form.querySelector('button[type="submit"], input[type="submit"]');
-  if (btn) btn.disabled = isSubmitting;
-}
-
 if (waitlistForm) {
   waitlistForm.addEventListener("submit", (e) => {
     const honeypot = waitlistForm.querySelector('input[name^="b_"]');
@@ -85,7 +136,7 @@ if (waitlistForm) {
       return;
     }
 
-    // (에러 메시지 초기화)
+    // reset error message
     setFormStatus(waitlistForm, "", "info");
 
     setSubmitting(waitlistForm, true);
@@ -93,8 +144,7 @@ if (waitlistForm) {
 
     setTimeout(() => {
       setSubmitting(waitlistForm, false);
-      // setFormStatus(waitlistForm, "", "info"); // 필요하면 켜기
+      // setFormStatus(waitlistForm, "", "info"); // optional
     }, 5000);
   });
 }
-

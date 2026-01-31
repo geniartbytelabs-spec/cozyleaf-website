@@ -330,7 +330,7 @@ main{ padding-top: var(--header-h); }
   right: -130px;
   top: -60px;
 }
-#how .container, #impact .container, #waitlist .container, #waitlist .container{
+#how .container, #impact .container, #waitlist .container, #message .container{
   position: relative;
   z-index: 1;
 }
@@ -543,6 +543,7 @@ main{ padding-top: var(--header-h); }
     grid-template-columns: 1fr;
   }
 }
+
 @media (max-width: 768px){
   :root{ --header-h: 68px; }
 
