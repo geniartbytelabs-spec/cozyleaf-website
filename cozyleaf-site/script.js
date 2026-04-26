@@ -31,7 +31,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") setMenu(false);
 });
 
-/* (선택) 바깥 클릭하면 닫기 */
+// Optional: close when clicking outside the header
 document.addEventListener("click", (e) => {
   const clickedInsideHeader = e.target.closest(".header");
   if (!clickedInsideHeader) setMenu(false);
@@ -82,7 +82,7 @@ if (waitlistForm) {
       return;
     }
 
-    // (에러 메시지 초기화)
+    // Clear any previous error/status
     setFormStatus(waitlistForm, "", "info");
 
     setSubmitting(waitlistForm, true);
