@@ -1,9 +1,9 @@
 /* =========================
-   CozyLeaf — Card Layout 유지 + Bubble 2 Sections Only
+   CozyLeaf â€” Card Layout ìœ ì§€ + Bubble 2 Sections Only
    - Header: glass white + mint text
    - Sections: ALL use card container (like before)
    - Big side bubbles ONLY on #how and #impact
-   - Hero: photo card + floating shadow 유지
+   - Hero: photo card + floating shadow ìœ ì§€
 ========================= */
 
 /* ---------- Tokens ---------- */
@@ -78,7 +78,7 @@ main{ padding-top: var(--header-h); }
   border-radius: 10px;
 }
 
-/* nav spacing 살짝 타이트 */
+/* nav spacing ì‚´ì§ íƒ€ì´íŠ¸ */
 .nav--desktop{
   display:flex;
   gap: 6px;
@@ -273,7 +273,7 @@ main{ padding-top: var(--header-h); }
 }
 .section:nth-of-type(even){ background: var(--mint-soft); }
 
-/* ✅ card box maintained for every section */
+/* âœ… card box maintained for every section */
 .section .container{
   position: relative;
   border-radius: 22px;
@@ -320,6 +320,7 @@ main{ padding-top: var(--header-h); }
   background: rgba(243,226,106,0.20);
   left: -90px;
   top: 120px;
+  pointer-events: none;
 }
 #how::after, #impact::after{
   content:"";
@@ -329,6 +330,7 @@ main{ padding-top: var(--header-h); }
   background: rgba(130,198,182,0.18);
   right: -130px;
   top: -60px;
+  pointer-events: none;
 }
 #how .container, #impact .container{
   position: relative;
@@ -427,7 +429,7 @@ main{ padding-top: var(--header-h); }
 
 .form-status{
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--muted);
 }
 .form-status[data-type="success"]{ color: #1b7f3a; }
@@ -466,32 +468,6 @@ main{ padding-top: var(--header-h); }
   font-size: 13px;
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 900px){
-  .hero-grid{ grid-template-columns: 1fr; }
-  .hero-image img{ height: 420px; }
-  .hero-text h1{ max-width: 26ch; }
-
-  .hero::before{
-    background-size: 650px auto;
-    background-position: 90% 40%;
-    opacity: 0.06;
-  }
-}
-
-@media (max-width: 768px){
-  :root{ --header-h: 68px; }
-
-  .nav--desktop, .cta--desktop{ display:none; }
-  .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
-
-  .logo-mark{ height: 30px; }
-
-  .footer__inner{ grid-template-columns: 1fr; }
-
-  .hero{ padding: 84px 0 56px; }
-  .section{ padding: 80px 0; }
-}
 
 /* =========================
    Wadiz Backer Section FINAL
@@ -574,10 +550,6 @@ main{ padding-top: var(--header-h); }
   outline: none;
 }
 
-#wadiz-backer input[type="email"]:focus {
-  border-color: var(--mint-ink);
-  box-shadow: 0 0 0 4px rgba(147,207,195,0.22);
-}
 
 /* ---------- Button ---------- */
 #wadiz-backer .btn {
@@ -594,9 +566,20 @@ main{ padding-top: var(--header-h); }
   opacity: 0.75;
 }
 
+#wadiz-backer .btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(243,226,106,0.45);
+}
+
+#wadiz-backer input[type="email"]:focus {
+  border-color: var(--mint-ink);
+  box-shadow: 0 0 0 4px rgba(147,207,195,0.25);
+}
+
 /* ---------- Note ---------- */
 .wadiz-note {
-  margin-top: 18px;
+  margin-top: 20px;
+  padding-top: 15px;
   font-size: 14px;
   color: var(--muted);
 }
@@ -640,14 +623,270 @@ main{ padding-top: var(--header-h); }
   #wadiz-backer .btn {
     width: 100%;
   }
-
-  #wadiz-backer .btn--primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 34px rgba(243,226,106,0.45);
 }
 
-#wadiz-backer input[type="email"]:focus {
-  border-color: var(--mint-ink);
-  box-shadow: 0 0 0 4px rgba(147,207,195,0.25);
+/* ---------- Message form base (always applies) ---------- */
+.section-lead{
+  margin-top: 8px;
+  color: var(--muted);
+  max-width: 62ch;
 }
+
+.form{
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+  max-width: 640px;
 }
+
+.form--card{
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(47,52,56,0.10);
+  background: rgba(255,255,255,0.86);
+  box-shadow: var(--shadow-soft);
+}
+
+.form-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form input,
+.form textarea{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(47,52,56,0.14);
+  background: rgba(255,255,255,0.95);
+  color: var(--ink);
+  font: inherit;
+  outline: none;
+}
+
+.form input:focus,
+.form textarea:focus{
+  border-color: rgba(130,198,182,0.55);
+  box-shadow: 0 0 0 4px rgba(130,198,182,0.18);
+}
+
+.form textarea{
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ============ Painpoints â€” glass silhouette cards ============ */
+.section--painpoints .container{
+  background: rgba(255,255,255,0.22) !important;
+  border: 1px solid rgba(255,255,255,0.42) !important;
+  box-shadow: var(--shadow-card) !important;
+  border-radius: 22px !important;
+  padding: 34px 26px !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.section--painpoints .painpoints-title,
+.section--painpoints .painpoints-sub,
+.section--painpoints .painpoints-badge{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section--painpoints .painpoints-title{
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 14px;
+  font-size: clamp(34px, 3.2vw, 52px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--ink);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+  position: relative;
+}
+
+.section--painpoints .em{
+  color: var(--mint-ink);
+}
+
+.section--painpoints .painpoints-sub{
+  max-width: 760px;
+  margin: 0 auto 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.section--painpoints .painpoints-badge{
+  display: block;
+  width: fit-content;
+  margin: 0 auto 28px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  background: rgba(255,255,255,0.28);
+  border: 1px solid rgba(47,52,56,0.10);
+}
+
+.section--painpoints .painpoints-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 34px 44px;
+  align-items: start;
+  justify-items: center;
+  margin-top: 20px;
+}
+
+.section--painpoints .painpoint-card{
+  width: 100%;
+  max-width: 420px;
+  padding: 22px 18px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.36);
+  box-shadow: 0 10px 24px rgba(47,52,56,0.06);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.section--painpoints .painpoint-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(47,52,56,0.08);
+}
+
+.section--painpoints .painpoint-card img{
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 22px;
+  margin: 0 auto 14px;
+  border: 1px solid rgba(47,52,56,0.08);
+  background: rgba(255,255,255,0.35);
+}
+
+.section--painpoints .painpoint-card h3{
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin: 6px 0 10px;
+  color: var(--ink);
+}
+
+.section--painpoints .painpoint-card p{
+  line-height: 1.75;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px){
+  .hero-grid{ grid-template-columns: 1fr; }
+  .hero-image img{ height: 420px; }
+  .hero-text h1{ max-width: 26ch; }
+
+  .hero::before{
+    background-size: 650px auto;
+    background-position: 90% 40%;
+    opacity: 0.06;
+  }
+}
+
+@media (max-width: 860px){
+  .section--painpoints{
+    padding: 76px 0;
+  }
+
+  .section--painpoints .painpoints-title{
+    width: 100%;
+    margin-bottom: 22px;
+    text-align: center;
+  }
+
+  .section--painpoints .painpoints-sub{
+    max-width: 720px;
+    text-align: center;
+  }
+
+  .section--painpoints .painpoints-badge{
+    margin: 14px auto 28px;
+  }
+
+  .section--painpoints .painpoints-grid{
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .section--painpoints .painpoint-card{
+    max-width: 520px;
+  }
+
+  .section--painpoints .painpoint-card h3{
+    font-size: 22px;
+  }
+
+  .section--painpoints .painpoint-card img{
+    width: 78px;
+    height: 78px;
+  }
+
+  .hero .proof-line{
+    margin-top: 26px;
+  }
+}
+
+@media (max-width: 768px){
+  :root{ --header-h: 68px; }
+
+  .nav--desktop,
+  .cta--desktop{
+    display: none;
+  }
+
+  .hamburger{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-mark{ height: 30px; }
+  .footer__inner{ grid-template-columns: 1fr; }
+  .hero{ padding: 84px 0 56px; }
+  .section{ padding: 80px 0; }
+  .form-grid{ grid-template-columns: 1fr; }
+}
+
+/* Painpoints 카드 안 텍스트 중앙정렬 */
+.section--painpoints .painpoint-card{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section--painpoints .painpoint-card h3,
+.section--painpoints .painpoint-card p{
+  text-align: center;
+}
+
+.section--painpoints .painpoint-card p{
+  max-width: 34ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Contact title/subtitle spacing tweak */
+#message h2{
+  margin-bottom: 10px;
+  line-height: 1.12;
+}
+
+#message .section-lead{
+  margin-top: 0;
+}
+
+
